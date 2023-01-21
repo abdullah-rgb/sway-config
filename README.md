@@ -9,3 +9,5 @@
 - Alacritty
 - bemenu
 - grim
+- brightnessctl
+- pamixer
