@@ -13,13 +13,21 @@ set $mod Mod4
 
 # Terminal emulator
 set $term alacritty
+
+# Browser
 set $browser MOZ_ENABLE_WAYLAND=1 firefox
+
+# Launcher
 set $menu bemenu-run wayland --fn 'Iosevka Nerd Font 14' -B 3 --bdr '#6272a4' --ff '#ECEFF4' --fb '#44475a' --nb '#44475a' --nf '#ECEFF4' --hb '#6272a4' --hf '#ECEFF4' --tb '#44475a' --tf '#ECEFF4' --sb '#44475a' --sf '#ECEFF4' --ab '#282a36' --af '#ECEFF4'
+
+# File Manager
 set $filemanager thunar
+
+# Screenshot
 set $screenshot grim
 
 # Font (Sway)
-font pango:Iosevka Nerd Font, Font Awesome 12
+font pango:Terminus, Font Awesome 12
 
 # GTK Theme, Icon, Font, etc...
 set $gnome-schema org.gnome.desktop.interface
@@ -55,6 +63,7 @@ client.focused_tab_title    $ia        $ia         $fg     $ia
 # Set Wallpaper
 output * bg ~/.config/wallpaper/dracula/arch.png fill
 
+# Input options
 input * {
     
     # Keyboard
