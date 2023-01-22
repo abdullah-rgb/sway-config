@@ -9,13 +9,26 @@ gaps outer 4
 # Variables
 set $mod Mod4
 
+##################################################
+
 # Terminal emulator
 set $term alacritty
+
+# Browser
 set $browser MOZ_ENABLE_WAYLAND=1 firefox
+
+# Launcher
 set $menu bemenu-run wayland --fn 'Iosevka Nerd Font 14'
+
+# File Manager
 set $filemanager thunar
+
+# Screenshot
 set $screenshot grim
 
+##################################################
+
+# Fonts (Sway)
 font pango:Terminus, Font Awesome 14
 
 # GTK Theme, Icon, Font, etc...
@@ -28,6 +41,7 @@ exec_always {
     gsettings set $gnome-schema font-name 'SF Pro Display 14'
 }
 
+# Volume
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
@@ -51,6 +65,7 @@ client.focused_tab_title    $ia        $ia         $fg     $ia
 # Set Wallpaper
 output * bg ~/.config/wallpaper/arch1.png fill
 
+# Input options
 input * {
     
     # Keyboard
