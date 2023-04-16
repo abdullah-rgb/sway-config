@@ -215,9 +215,9 @@ bindsym $mod+r mode "resize"
 bar {
         position top
         status_command /home/$USER/.config/sway/bumblebee-status/bumblebee-status \
-		          -m memory disk battery pamixer brightness date time \
-		          -p time.format="%H:%M:%S" date.format="%d/%m/%Y" memory.format={used}/{total} disk.format={used}/{size} \
-	                  -t gruvbox-powerline
+		        -m memory disk battery pamixer brightness date time \
+		        -p time.format="%H:%M:%S" date.format="%d/%m/%Y" memory.format={used}/{total} disk.format={used}/{size} \
+	            -t gruvbox-powerline
 
 	workspace_min_width 80
 
