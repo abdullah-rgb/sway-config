@@ -1,0 +1,110 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 4,
+    "mode": "dock", // "dock", "overlay", "invisible"
+    "fixed-center": true,
+    "gtk-layer-shell": true,
+    "modules-left": ["sway/workspaces", "sway/window"],
+    // "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "disk", "network", "cpu", "memory", "backlight", "battery", "clock", "tray"],
+    
+    "sway/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+    //     "format": "    {name}  {icon}    ",
+    //     "format-icons": {
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+     },
+    
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    "sway/window": {
+        "format": "  |  -> {} ",
+        "tooltip-format": "{app_id}"
+    },
+
+    "tray": {
+        "icon-size": 24,
+        "spacing": 10
+    },
+    
+    "clock": {
+        "format": " {:%H:%M:%S} ",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": " {:%d/%m/%Y} "
+    },
+    
+    "cpu": {
+        "format": " {usage}%   ",
+        "tooltip": false
+    },
+    
+    "memory": {
+        "format": " {}%   "
+    },
+
+    "backlight": {
+        "format": " {percent}% {icon}  ",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl s +10",
+        "on-scroll-down": "brightnessctl s 10-",
+        "smooth-scrolling-threshold": "double"
+    },
+    
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": " {capacity}% {icon} ",
+        "format-charging": " {capacity}%  ",
+        "format-plugged": " {capacity}%  ",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": " {essid}/{ipaddr}  ",
+        "format-ethernet": " {ipaddr}/{cidr}  ",
+        "tooltip-format": " {ifname} via {gwaddr}  ",
+        "format-linked": " {ifname} (No IP)  ",
+        "format-disconnected": " Disconnected ⚠ ",
+        "format-alt": " {ifname}: {ipaddr}/{cidr} "
+    },
+    
+    "pulseaudio": {
+       "scroll-step": 1.0, // %, can be a float
+        "format": " {volume}% {icon} {format_source} ",
+        "format-bluetooth": " {volume}% {icon}  {format_source} ",
+        "format-bluetooth-muted": "  {icon} {format_source} ",
+        "format-muted": "  {format_source} ",
+        "format-source": " | {volume}%  ",
+        "format-source-muted": "  ",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "disk": {
+        "path": "/",
+        "format": " {path} -> used {used} ",
+        "tooltip-format": "{path} -> used {used} | total {total}"
+    }
+}
