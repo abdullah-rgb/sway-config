@@ -1,0 +1,225 @@
+# remove window title
+for_window [class="^.*"] border pixel 3
+
+title_align center
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec /usr/local/bin/gamma
+
+gaps inner 6
+gaps outer 6
+
+# Variables
+set $mod Mod4
+
+# Terminal emulator
+set $term alacritty
+
+# Browser
+set $browser MOZ_ENABLE_WAYLAND=1 firefox
+
+# Launcher
+set $menu rofi -show run -show-icons
+
+# File Manager
+set $filemanager EDITOR=nvim alacritty -T "ranger" -e ranger
+
+# Screenshot
+set $screenshot grim
+
+# Font (Sway)
+font pango:JetBrains Mono Nerd Font, Font Awesome 12
+
+# GTK Theme, Icon, Font, etc...
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'MonoThemeDark'
+    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    gsettings set $gnome-schema cursor-theme 'BreezeX-Black'
+    gsettings set $gnome-schema font-name 'SF Pro Display 12'
+}
+
+# Volume
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# colors
+set $bg     #cdd6f4
+set $fg     #cad3f5
+set $ia     #5b6078
+
+# set some nice colors      border     background  text    indicator
+client.focused              $bg        $bg         $fg     $bg
+client.unfocused            $ia        $ia         $fg     $ia
+client.focused_inactive     $ia        $ia         $fg     $ia
+client.urgent               $ia        $ia         $fg     $ia
+client.background           $ia        $ia         $fg     $ia
+client.placeholder          $ia        $ia         $fg     $ia
+client.focused_tab_title    $ia        $ia         $fg     $ia
+
+# Set Wallpaper
+output * bg ~/.config/wallpaper/wall2.jpg fill
+
+# Input options
+input * {
+    
+    # Keyboard
+    xkb_layout "tr"
+    xkb_options "grp:win_space_toggle"
+
+    repeat_delay 200
+    repeat_rate 60
+    
+    # Touchpad
+    tap enabled
+    natural_scroll disable
+    pointer_accel 0.02
+    middle_emulation enabled
+    dwt enabled
+
+    # accel_profile "flat"
+}
+
+    # Terminal
+    bindsym $mod+Return exec $term
+
+    # Browser
+    bindsym $mod+w exec $browser
+
+    # File Manager
+    bindsym $mod+e exec $filemanager
+
+    # Launcher
+    bindsym $mod+d exec $menu
+
+    # Screenshot
+    bindsym $mod+s exec $screenshot
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    # Execute swaylock
+    bindsym $mod+l exec swaylock --font "JetBrainsMono Nerd Font Mono" -i ~/.config/wallpaper/wall2.jpg -k --indicator-idle-visible --ring-color "#282a36" --separator-color "#44475a" --text-color "#f8f8f2" --line-color "#f8f8f2"
+#
+# Moving around:
+#
+    # Focus another window
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:󰙯"
+
+    # Switch to workspace
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
+    bindsym $mod+0 workspace $ws10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace $ws1
+    bindsym $mod+Shift+2 move container to workspace $ws2
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws8
+    bindsym $mod+Shift+9 move container to workspace $ws9
+    bindsym $mod+Shift+0 move container to workspace $ws10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    bindsym $mod+h splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+t layout stacking
+    bindsym $mod+y layout tabbed
+    bindsym $mod+u layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+d floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+bar {
+    swaybar_command waybar
+}
+
+include /etc/sway/config.d/*
+include pointer
+include touchpad
